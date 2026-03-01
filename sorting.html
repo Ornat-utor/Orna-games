@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>משחק מיון</title>
+
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background-color: #f4f6f9;
+}
+
+#items {
+  margin: 20px;
+}
+
+.item {
+  background: #4da6ff;
+  color: white;
+  padding: 8px;
+  margin: 5px;
+  border-radius: 6px;
+  display: inline-block;
+  cursor: grab;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.column {
+  width: 40%;
+  min-height: 250px;
+  background: white;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.correct { background: #4CAF50 !important; }
+.wrong { background: #f44336 !important; }
+
+button {
+  margin: 10px;
+  padding: 8px 15px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>גררו כל פריט לקטגוריה המתאימה</h2>
+
+<div id="items"></div>
+
+<div class="container">
+  <div class="column" id="cat1" ondragover="allowDrop(event)" ondrop="drop(event)">
+    <h3>קטגוריה א'</h3>
+  </div>
+  <div class="column" id="cat2" ondragover="allowDrop(event)" ondrop="drop(event)">
+    <h3>קטגוריה ב'</h3>
+  </div>
+</div>
+
+<button onclick="checkAnswers()">בדוק תשובות</button>
+<button onclick="resetGame()">איפוס</button>
+
+<script>
+const data = [
+  {text:"פריט 1", category:"cat1"},
+  {text:"פריט 2", category:"cat2"},
+  {text:"פריט 3", category:"cat1"},
+  {text:"פריט 4", category:"cat2"}
+];
+
+let dragged;
+
+function init(){
+  const container = document.getElementById("items");
+  container.innerHTML="";
+  data.sort(()=>Math.random()-0.5);
+  data.forEach((item,i)=>{
+    const div=document.createElement("div");
+    div.className="item";
+    div.draggable=true;
+    div.id="item"+i;
+    div.textContent=item.text;
+    div.dataset.category=item.category;
+    div.addEventListener("dragstart",e=>dragged=e.target);
+    container.appendChild(div);
+  });
+}
+
+function allowDrop(ev){ ev.preventDefault(); }
+
+function drop(ev){
+  ev.preventDefault();
+  if(ev.target.classList.contains("column")){
+    ev.target.appendChild(dragged);
+  }
+}
+
+function checkAnswers(){
+  document.querySelectorAll(".item").forEach(item=>{
+    const parent=item.parentElement.id;
+    item.classList.remove("correct","wrong");
+    if(parent===item.dataset.category){
+      item.classList.add("correct");
+    }else{
+      item.classList.add("wrong");
+    }
+  });
+}
+
+function resetGame(){
+  init();
+  document.querySelectorAll(".column").forEach(col=>{
+    col.querySelectorAll(".item").forEach(item=>{
+      document.getElementById("items").appendChild(item);
+    });
+  });
+}
+
+init();
+</script>
+
+</body>
+</html>
