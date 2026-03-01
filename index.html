@@ -2,134 +2,81 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>משחק מיון - אורנה</title>
+<title>Orna Learning Games</title>
 
 <style>
 body {
   font-family: Arial;
-  text-align: center;
   background-color: #f4f6f9;
+  text-align: center;
+  margin: 0;
 }
 
-h2 {
-  margin-top: 20px;
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 20px;
 }
 
-#items {
-  margin: 20px;
+h1 {
+  margin: 0;
 }
 
-.item {
+.subtitle {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.section {
+  margin: 40px 0;
+}
+
+.section h2 {
+  margin-bottom: 15px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 8px;
   background: #4da6ff;
   color: white;
-  padding: 8px;
-  margin: 5px;
-  border-radius: 6px;
-  display: inline-block;
-  cursor: grab;
+  text-decoration: none;
+  border-radius: 8px;
 }
 
-.container {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-}
-
-.column {
-  width: 40%;
-  min-height: 250px;
-  background: white;
-  border: 2px dashed #aaa;
-  border-radius: 10px;
-  padding: 10px;
-}
-
-.correct { background: #4CAF50 !important; }
-.wrong { background: #f44336 !important; }
-
-button {
-  margin: 10px;
-  padding: 8px 15px;
+.button:hover {
+  background: #357ABD;
 }
 </style>
 </head>
 
 <body>
 
-<h2>גררו כל פריט לקטגוריה המתאימה</h2>
+<header>
+  <h1>Orna Learning Games</h1>
+  <div class="subtitle">מרכז המשחקים הלימודיים של אורנה</div>
+</header>
 
-<div id="items"></div>
-
-<div class="container">
-  <div class="column" id="cat1" ondragover="allowDrop(event)" ondrop="drop(event)">
-    <h3>קטגוריה א'</h3>
-  </div>
-  <div class="column" id="cat2" ondragover="allowDrop(event)" ondrop="drop(event)">
-    <h3>קטגוריה ב'</h3>
-  </div>
+<div class="section">
+  <h2>עברית</h2>
+  <a class="button" href="sorting.html">משחק מיון – לדוגמה</a>
 </div>
 
-<button onclick="checkAnswers()">בדוק תשובות</button>
-<button onclick="resetGame()">איפוס</button>
+<div class="section">
+  <h2>אנגלית</h2>
+  <p>בקרוב...</p>
+</div>
 
-<script>
-const data = [
-  {text:"פריט 1", category:"cat1"},
-  {text:"פריט 2", category:"cat2"},
-  {text:"פריט 3", category:"cat1"},
-  {text:"פריט 4", category:"cat2"}
-];
+<div class="section">
+  <h2>מתמטיקה</h2>
+  <p>בקרוב...</p>
+</div>
 
-let dragged;
-
-function init(){
-  const container = document.getElementById("items");
-  container.innerHTML="";
-  data.sort(()=>Math.random()-0.5);
-  data.forEach((item,i)=>{
-    const div=document.createElement("div");
-    div.className="item";
-    div.draggable=true;
-    div.id="item"+i;
-    div.textContent=item.text;
-    div.dataset.category=item.category;
-    div.addEventListener("dragstart",e=>dragged=e.target);
-    container.appendChild(div);
-  });
-}
-
-function allowDrop(ev){ ev.preventDefault(); }
-
-function drop(ev){
-  ev.preventDefault();
-  if(ev.target.classList.contains("column")){
-    ev.target.appendChild(dragged);
-  }
-}
-
-function checkAnswers(){
-  document.querySelectorAll(".item").forEach(item=>{
-    const parent=item.parentElement.id;
-    item.classList.remove("correct","wrong");
-    if(parent===item.dataset.category){
-      item.classList.add("correct");
-    }else{
-      item.classList.add("wrong");
-    }
-  });
-}
-
-function resetGame(){
-  init();
-  document.querySelectorAll(".column").forEach(col=>{
-    col.querySelectorAll(".item").forEach(item=>{
-      document.getElementById("items").appendChild(item);
-    });
-  });
-}
-
-init();
-</script>
+<div class="section">
+  <h2>משחקי ריכוז</h2>
+  <p>בקרוב...</p>
+</div>
 
 </body>
 </html>
