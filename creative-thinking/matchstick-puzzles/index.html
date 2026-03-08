@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<title>חידות גפרורים</title>
 
+<style>
+body{
+font-family: Arial;
+text-align:center;
+background:#f5f5f5;
+}
+
+.puzzle{
+font-size:40px;
+margin:30px;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+font-size:16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>חידות גפרורים</h1>
+
+<p>הזיזו גפרור אחד כדי לתקן</p>
+
+<div class="puzzle">
+IX + V = III
+</div>
+
+<button onclick="hint()">רמז</button>
+<button onclick="answer()">פתרון</button>
+
+<script>
+
+function hint(){
+alert("בדקו את הספרה הראשונה");
+}
+
+function answer(){
+alert("IV + V = IX");
+}
+
+</script>
+
+</body>
+</html>
