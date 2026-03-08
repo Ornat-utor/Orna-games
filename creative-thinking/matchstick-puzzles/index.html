@@ -5,48 +5,93 @@
 <title>חידות גפרורים</title>
 
 <style>
+
 body{
-font-family: Arial;
+font-family:Arial;
 text-align:center;
-background:#f5f5f5;
+background:#f2f2f2;
 }
 
-.puzzle{
-font-size:40px;
-margin:30px;
+h1{
+margin-top:30px;
 }
 
-button{
-padding:10px 20px;
-margin:10px;
-font-size:16px;
+#board{
+width:600px;
+height:300px;
+margin:40px auto;
+position:relative;
+background:white;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.15);
 }
+
+.match{
+position:absolute;
+width:80px;
+height:8px;
+background:#d2a679;
+border-radius:4px;
+cursor:pointer;
+}
+
+.match::after{
+content:"";
+position:absolute;
+right:-6px;
+top:-3px;
+width:14px;
+height:14px;
+background:#c40000;
+border-radius:50%;
+}
+
 </style>
-
 </head>
 
 <body>
 
 <h1>חידות גפרורים</h1>
+<p>גררו גפרור אחד כדי לפתור</p>
 
-<p>הזיזו גפרור אחד כדי לתקן</p>
+<div id="board">
 
-<div class="puzzle">
-IX + V = III
+<div class="match" style="top:120px; left:200px;"></div>
+<div class="match" style="top:120px; left:300px;"></div>
+<div class="match" style="top:120px; left:400px;"></div>
+
 </div>
-
-<button onclick="hint()">רמז</button>
-<button onclick="answer()">פתרון</button>
 
 <script>
 
-function hint(){
-alert("בדקו את הספרה הראשונה");
+let selected = null;
+
+document.querySelectorAll(".match").forEach(match=>{
+
+match.addEventListener("mousedown",()=>{
+
+selected = match;
+
+});
+
+});
+
+document.addEventListener("mousemove",(e)=>{
+
+if(selected){
+
+selected.style.left = (e.pageX-40)+"px";
+selected.style.top = (e.pageY-10)+"px";
+
 }
 
-function answer(){
-alert("IV + V = IX");
-}
+});
+
+document.addEventListener("mouseup",()=>{
+
+selected = null;
+
+});
 
 </script>
 
