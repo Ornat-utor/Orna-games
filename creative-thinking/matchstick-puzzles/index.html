@@ -101,8 +101,19 @@ document.addEventListener("mousemove",(e)=>{
 
 if(selected){
 
-selected.style.left = (e.pageX-40)+"px";
-selected.style.top = (e.pageY-10)+"px";
+const board = document.getElementById("board");
+const rect = board.getBoundingClientRect();
+
+let x = e.clientX - rect.left - 40;
+let y = e.clientY - rect.top - 10;
+
+/* גבולות הלוח */
+
+x = Math.max(0, Math.min(x, rect.width - 80));
+y = Math.max(0, Math.min(y, rect.height - 10));
+
+selected.style.left = x + "px";
+selected.style.top = y + "px";
 
 }
 
