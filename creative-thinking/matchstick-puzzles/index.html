@@ -69,6 +69,21 @@ border-radius:50%;
 <script>
 
 let selected = null;
+let movedMatches = 0;
+let startPositions = [];
+
+/* שמירת מיקום התחלתי של הגפרורים */
+
+document.querySelectorAll(".match").forEach(match => {
+
+startPositions.push({
+x: match.offsetLeft,
+y: match.offsetTop
+});
+
+});
+
+/* התחלת גרירה */
 
 document.querySelectorAll(".match").forEach(match=>{
 
@@ -79,6 +94,8 @@ selected = match;
 });
 
 });
+
+/* גרירה */
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -91,13 +108,48 @@ selected.style.top = (e.pageY-10)+"px";
 
 });
 
+/* סיום גרירה */
+
 document.addEventListener("mouseup",()=>{
+
+if(selected){
+
+let index = Array.from(document.querySelectorAll(".match")).indexOf(selected);
+
+let start = startPositions[index];
+
+let dx = Math.abs(selected.offsetLeft - start.x);
+let dy = Math.abs(selected.offsetTop - start.y);
+
+if(dx > 10 || dy > 10){
+movedMatches++;
+}
+
+}
 
 selected = null;
 
 });
 
-</script>
+/* בדיקת פתרון */
 
+document.getElementById("checkBtn").onclick = function(){
+
+const msg = document.getElementById("message");
+
+if(movedMatches === 1){
+
+msg.innerHTML = "✨ כל הכבוד! הזזת גפרור אחד.";
+
+}
+else{
+
+msg.innerHTML = "יש להזיז גפרור אחד בלבד.";
+
+}
+
+};
+
+</script>
 </body>
 </html>
